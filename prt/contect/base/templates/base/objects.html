@@ -1,28 +1,16 @@
 {% extends 'base/base2.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+{% endblock %}
 
 {% block content %}
-
-<style>
-.custom-img {
-  width: 80%;
-  height: auto;
-}
-
-.text-lg {
-  font-size: 30px;
-  margin-top: 150px;
-}
-
-.image-container {
-  margin-top: 150px;
-}
-</style>
-
 <div class="container">
   <div class="row">
     <div class="col-lg">
       <div class="image-container text-center">
-        <img src="{{ person.photo.url }}" alt="{{ person.name }}" class="custom-img">
+        <img src="{{ person.photo.url }}" alt="{{ person.name }}" class="custom-img2">
       </div>
     </div>
     <div class="col-lg">
@@ -31,5 +19,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}
