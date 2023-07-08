@@ -1,0 +1,35 @@
+{% extends 'base/base2.html' %}
+
+{% block content %}
+
+<style>
+.custom-img {
+  width: 80%;
+  height: auto;
+}
+
+.text-lg {
+  font-size: 30px;
+  margin-top: 150px;
+}
+
+.image-container {
+  margin-top: 150px;
+}
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg">
+      <div class="image-container text-center">
+        <img src="{{ person.photo.url }}" alt="{{ person.name }}" class="custom-img">
+      </div>
+    </div>
+    <div class="col-lg">
+      <h1 class="text-lg">{{ person.name }}</h1>
+      <p>{{ person.content }}</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base/base2.html' %}
+
+{% block content %}
+
+<style>
+  .register-form-container {
+    margin-top: 130px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+  }
+
+  .form-field {
+    margin-bottom: 10px;
+  }
+
+  .form-field input {
+    width: 100%;
+  }
+</style>
+
+<div class="register-form-container">
+  <form method="post">
+    <h1>{{title}}</h1>
+    {% csrf_token %}
+    {% for f in form %}
+      <div class="form-field">
+        <label for="{{ f.id_for_label }}">{{ f.label }}:</label>
+        {{ f }}
+        <div>{{ f.errors }}</div>
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Вход</button>
+  </form>
+</div>
+
+
+
+{% endblock %}
