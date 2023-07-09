@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from captcha.fields import CaptchaField
 
+from base.models import Person
+
 
 class RegisterForm(UserCreationForm):
     # username=forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class':'form-input'}))
@@ -23,9 +25,7 @@ class ContactForm(forms.Form):
     content=forms.CharField(label='Комментарии', widget=forms.Textarea(attrs={'cols':60, 'rows':10}))
     captcha=CaptchaField(label='Введите пожалуйста текст с картинки')
 
-# class AddForm(forms.Form):
-#     name = forms.CharField(max_length=255)
-#     content = forms.CharField(max_length=255)
-#     photo = forms.ImageField(upload_to='photos/%Y/%m/%d/')
-#     time = forms.DateTimeField(auto_now_add=True)
-#     is_pub = forms.BooleanField(default=True)
+class AddForm(forms.ModelForm):
+    class Meta:
+        model=Person
+        fields=['name','content','photo', 'is_pub']

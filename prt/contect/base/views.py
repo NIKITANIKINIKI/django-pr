@@ -6,14 +6,14 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, FormView, DetailView
 
-from .forms import RegisterForm, ContactForm
+from .forms import RegisterForm, ContactForm, AddForm
 from .models import *
 
 
 
 menu=[{'title':"Поиск", 'url_name':'home'},
       {'title':'ОБРАТНАЯ СВЯЗЬ', 'url_name':'feedback'},
-      {'title':'ДОБАВИТЬ АНКЕТУ', 'url_name':'about'},
+      {'title':'ДОБАВИТЬ АНКЕТУ', 'url_name':'add'},
       {'title':'ВОЙТИ', 'url_name':'login'},
       {'title':'РЕГИСТРАЦИЯ', 'url_name':'register'}]
 
@@ -32,18 +32,8 @@ class Home(ListView):
     def get_queryset(self):
         return Person.objects.order_by('?')[:3]
 
-# class Category(ListView):
-#     model=
-
-
-# def index(request):
-#     return render(request, 'base/index.html', {'menu':menu,'title':'Главная страница'})
-
 def about(request):
     return render(request, 'base/about.html', {'menu':menu,'title':'О сайте'})
-
-def objects(request, obid):
-    return HttpResponse(f'<h1> Hello </h1><p>{obid}</p>')
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
@@ -95,4 +85,15 @@ class PostDetailView(DetailView):
         context=super().get_context_data(**kwargs)
         context['menu']=menu
         context['title']='Персонаж'
+        return context
+
+class AddContent(CreateView):
+    form_class=AddForm
+    template_name='base/add.html'
+    success_url = 'home'
+    context_object_name = 'person'
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['menu']=menu
+        context['title']='Добавление статьи'
         return context
