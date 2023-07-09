@@ -5,10 +5,11 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, FormView, DetailView
+from django.contrib.auth.decorators import login_required
+
 
 from .forms import RegisterForm, ContactForm, AddForm
 from .models import *
-
 
 
 menu=[{'title':"Поиск", 'url_name':'home'},
@@ -20,7 +21,7 @@ menu=[{'title':"Поиск", 'url_name':'home'},
 
 class Home(ListView):
     model=Person
-    template_name = 'base/index.html'
+    template_name = 'base/base.html'
     context_object_name = 'objects'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -32,8 +33,6 @@ class Home(ListView):
     def get_queryset(self):
         return Person.objects.order_by('?')[:3]
 
-def about(request):
-    return render(request, 'base/about.html', {'menu':menu,'title':'О сайте'})
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
@@ -50,7 +49,7 @@ class Register(CreateView):
 
 class Login(LoginView):
     form_class=AuthenticationForm
-    template_name='base/login.html'
+    template_name='base/register.html'
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
         context['menu']=menu
@@ -66,7 +65,7 @@ def logout_user(request):
 
 class FeedbackForm(FormView):
     form_class=ContactForm
-    template_name='base/feedback.html'
+    template_name='base/register.html'
     success_url=reverse_lazy('home')
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
@@ -87,9 +86,10 @@ class PostDetailView(DetailView):
         context['title']='Персонаж'
         return context
 
+
 class AddContent(CreateView):
     form_class=AddForm
-    template_name='base/add.html'
+    template_name='base/register.html'
     success_url = 'home'
     context_object_name = 'person'
     def get_context_data(self, *, object_list=None, **kwargs):

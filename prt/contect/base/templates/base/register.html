@@ -1,28 +1,14 @@
 {% extends 'base/base2.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+{% endblock %}
+
 {% block content %}
-<h1>{{title}}</h1>
-
-
-<style>
-  .register-form-container {
-    margin-top: 130px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 400px;
-  }
-
-  .form-field {
-    margin-bottom: 10px;
-  }
-
-  .form-field input {
-    width: 100%;
-  }
-</style>
-
 <div class="register-form-container">
   <form method="post">
-    <h1>Регистрация</h1>
+    <h1>{{title}}</h1>
     {% csrf_token %}
     {% for f in form %}
       <div class="form-field">
@@ -31,9 +17,7 @@
         <div>{{ f.errors }}</div>
       </div>
     {% endfor %}
-    <button type="submit" class="btn btn-primary">Регистрация</button>
+    <button type="submit" class="btn btn-primary">{{title}}</button>
   </form>
 </div>
-
-
 {% endblock %}
