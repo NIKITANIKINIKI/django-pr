@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -90,10 +92,12 @@ class PostDetailView(DetailView):
 class AddContent(CreateView):
     form_class=AddForm
     template_name='base/register.html'
-    success_url = 'home'
     context_object_name = 'person'
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
         context['menu']=menu
         context['title']='Добавление статьи'
+        context['enctype'] = 'multipart/form-data'
         return context
+    def get_success_url(self):
+        return reverse_lazy('home')
