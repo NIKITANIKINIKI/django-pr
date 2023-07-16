@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from captcha.fields import CaptchaField
 
-from base.models import Person
+from base.models import Person, UserComment
+
 
 class RegisterForm(UserCreationForm):
     class Meta:
@@ -30,4 +31,12 @@ class AddForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'class': 'form-input', 'cols': 60, 'rows': 10}),
             'photo': forms.FileInput(attrs={'class': 'form-input'}),
             'is_pub': forms.CheckboxInput(attrs={'class': 'form-input'}),
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model=UserComment
+        fields=['user_content']
+        widgets={
+            'user_content':forms.Textarea(attrs={'class': 'form-input', 'cols': 60, 'rows': 10}),
         }

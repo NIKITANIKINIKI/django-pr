@@ -10,3 +10,4 @@ class BaseAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Person, BaseAdmin)
+admin.site.register(UserComment)

@@ -15,6 +15,21 @@
     <div class="col-lg">
       <h1 class="text-lg">{{ person.name }}</h1>
       <p>{{ person.content }}</p>
+      {% for comment in comments %}
+        <div class="comment">
+          <p>{{ comment.user.username }}:</p>
+          <p>{{ comment.user_content }}</p>
+          <p>{{ comment.created_time }}</p>
+        </div>
+      {% endfor %}
+      <h3>Оставить комментарий</h3>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="my-3">
+        <button type="submit" class="btn btn-primary" >Отправить</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

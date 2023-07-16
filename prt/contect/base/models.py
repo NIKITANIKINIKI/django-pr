@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Person(models.Model):
@@ -17,5 +17,11 @@ class Person(models.Model):
         verbose_name_plural='Соискатели'
         ordering=['time', 'name']
 
-class Activite(models.Model):
-    pass
+class UserComment(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    person=models.ForeignKey(Person, on_delete=models.CASCADE)
+    user_content=models.TextField(max_length=255)
+    created_time=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Comment by user'

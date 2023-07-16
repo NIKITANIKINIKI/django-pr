@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, FormView, DetailView
 from .utils import *
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import RegisterForm, ContactForm, AddForm
+from .forms import RegisterForm, ContactForm, AddForm, CommentForm
 from .models import *
 
 
@@ -77,9 +77,26 @@ class PostDetailView(MyMixin,DetailView):
         context=super().get_context_data(**kwargs)
         context_m = self.get_user_context(title='Соискатели')
         context = dict(list(context.items()) + list(context_m.items()))
+        person=self.get_object()
+        comments=UserComment.objects.filter(person=person).order_by('created_time')
+        form=CommentForm()
+        context['comments']=comments
+        context['form']=form
         return context
 
-
+    def post(self, request, *args, **kwargs):
+        person=self.get_object()
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            comment=form.save(commit=False)
+            comment.user=request.user #привязываем пользователя к текущему коммментарию
+            comment.person=person
+            comment.save()
+            return redirect('post_detail', pk=person.id)
+        else:
+            context=self.get_context_data(**kwargs)
+            context['form']=form
+            return render(request, self.template_name, context)
 class AddContent(LoginRequiredMixin,CreateView):
     form_class=AddForm
     template_name='base/register.html'
