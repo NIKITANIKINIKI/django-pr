@@ -25,7 +25,10 @@
       <h3>Оставить комментарий</h3>
       <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="form-floating mb-3">
+            <textarea class="form-control" name="user_content" id="floatingTextarea" placeholder="Оставьте комментарий здесь" rows="4"></textarea>
+            <label for="floatingTextarea">Комментарии</label>
+        </div>
         <div class="my-3">
         <button type="submit" class="btn btn-primary" >Отправить</button>
         </div>
