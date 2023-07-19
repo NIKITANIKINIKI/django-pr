@@ -6,18 +6,20 @@
 {% endblock %}
 
 {% block content %}
-<div class="register-form-container">
-  <form method="post" enctype="multipart/form-data">
-    <h1>{{title}}</h1>
+<form method="post" enctype="multipart/form-data">
+  <div class="register-form-container">
+    <h1 class="text-center">{{title}}</h1>
     {% csrf_token %}
     {% for f in form %}
-      <div class="form-field">
-        <label for="{{ f.id_for_label }}">{{ f.label }}:</label>
+      <div class="my-3">
         {{ f }}
-        <div>{{ f.errors }}</div>
+      {{ f.errors }}
       </div>
     {% endfor %}
+  </div>
+  <div class="text-center">
     <button type="submit" class="btn btn-primary">{{title}}</button>
-  </form>
-</div>
+  </div>
+</form>
+
 {% endblock %}

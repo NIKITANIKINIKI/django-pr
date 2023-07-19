@@ -14,17 +14,17 @@
       {% if request.user.is_authenticated %}
         {% for m in menu %}
           {% if m.url_name != 'register' and m.url_name != 'login' %}
-            <a href="{% url m.url_name %}" class="btn btn-secondary menu-btn custom-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+            <a href="{% url m.url_name %}" class="btn btn-secondary custom-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
               <h5>{{ m.title }}</h5>
             </a>
           {% endif %}
         {% endfor %}
-        <a href="{% url 'logout' %}" class="btn btn-secondary menu-btn custom-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+        <a href="{% url 'logout' %}" class="btn btn-secondary custom-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
           <h5>Выйти</h5>
         </a>
       {% else %}
         {% for m in menu %}
-          <a href="{% url m.url_name %}" class="btn btn-secondary menu-btn custom-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+          <a href="{% url m.url_name %}" class="btn btn-secondary custom-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
             <h5>{{ m.title }}</h5>
           </a>
         {% endfor %}
@@ -56,7 +56,7 @@
   </div>
     <div class="d-flex justify-content-center align-items-center">
       <div class="my-4">
-        <a href="{% url 'home' %}" class="btn btn-secondary menu-btn custom-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" >
+        <a href="{% url 'home' %}" class="btn btn-secondary custom-button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" >
           <h5>Обновить</h5>
         </a>
       </div>
