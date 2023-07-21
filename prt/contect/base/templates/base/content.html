@@ -8,8 +8,8 @@
 {% block content %}
 
 <div class="container mt-100">
-    {% if not request.user.is_authenticated %}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+        {% if not request.user.is_authenticated %}
         <div class="col">
             <div class="card text-bg-dark">
                 <img src="{% static 'base/images/first.jpg' %}" class="card-img-top" alt="...">
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-    {% endif %}
+        {% endif %}
         {% for object in objects %}
         <div class="col">
             <div class="card text-bg-dark">

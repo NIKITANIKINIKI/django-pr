@@ -13,6 +13,7 @@
 
 .mt-100 {
     margin-top: 100px;
+    margin-bottom: 30px;
 }
 
 .card {
@@ -23,6 +24,4 @@
     background-color: blue;
 }
 
-.image-container {
-    margin-top: 150px;
-}
+
