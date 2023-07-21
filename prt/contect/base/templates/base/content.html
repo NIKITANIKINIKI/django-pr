@@ -1,0 +1,41 @@
+{% extends 'base/new_menu.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'base/css/new_style' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-100">
+    {% if not request.user.is_authenticated %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+        <div class="col">
+            <div class="card text-bg-dark">
+                <img src="{% static 'base/images/first.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Рад видеть тебя!</h5>
+                    <p class="card-text">Перед тем как продолжить, лучше сразу пройди процедуру регистрации или же войди в свой аккаунт!</p>
+                    <a href="{% url menu.3.url_name %}" class="btn btn-primary text-center">{{ menu.3.title }}</a>
+                    <a href="{% url menu.4.url_name %}" class="btn btn-primary text-center">{{ menu.4.title }}</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+        {% for object in objects %}
+        <div class="col">
+            <div class="card text-bg-dark">
+                <img src="{{ object.photo.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Dark card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="{% url 'post_detail' object.id %}" class="btn btn-primary text-center">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
