@@ -6,7 +6,23 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="pagination-container">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Туда!</a></li>
+          {% endif %}
+          {% for p in page_obj.paginator.page_range %}
+          {% if page_obj.number == p %}
+          <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+          {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Сюда!</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+</div>
 <div class="container mt-100">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
         {% if not request.user.is_authenticated %}
@@ -15,9 +31,9 @@
                 <img src="{% static 'base/images/first.jpg' %}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Рад видеть тебя!</h5>
-                    <p class="card-text">Перед тем как продолжить, лучше сразу пройди процедуру регистрации или же войди в свой аккаунт!</p>
-                    <a href="{% url menu.3.url_name %}" class="btn btn-primary text-center">{{ menu.3.title }}</a>
-                    <a href="{% url menu.4.url_name %}" class="btn btn-primary text-center">{{ menu.4.title }}</a>
+                    <p class="card-text">Перед тем как продолжить, лучше сразу пройди процедуру регистрации или же войти в свой аккаунт!</p>
+                    <a href="{% url menu.3.url_name %}" class="btn btn-outline-success text-center">{{ menu.3.title }}</a>
+                    <a href="{% url menu.4.url_name %}" class="btn btn-outline-success text-center">{{ menu.4.title }}</a>
                 </div>
             </div>
         </div>
@@ -27,9 +43,9 @@
             <div class="card text-bg-dark">
                 <img src="{{ object.photo.url }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Dark card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="{% url 'post_detail' object.id %}" class="btn btn-primary text-center">Подробнее</a>
+                    <h5 class="card-title">{{ object.name }}</h5>
+                    <p class="card-text">{{ object.content }}</p>
+                    <a href="{% url 'post_detail' object.id %}" class="btn btn-outline-success text-center">Подробнее</a>
                 </div>
             </div>
         </div>

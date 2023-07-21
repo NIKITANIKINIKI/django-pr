@@ -14,6 +14,7 @@ from django.contrib.auth import login
 
 class Home(MyMixin,ListView):
     model=Person
+    paginate_by=3
     template_name = 'base/content.html'
     context_object_name = 'objects'
 
@@ -84,7 +85,7 @@ class PostDetailView(LoginRequiredMixin,MyMixin,DetailView):
         context_m = self.get_user_context(title='Соискатели')
         context = dict(list(context.items()) + list(context_m.items()))
         person=self.get_object()
-        comments=UserComment.objects.filter(person=person).order_by('created_time')[:2]
+        comments=UserComment.objects.filter(person=person).order_by('created_time')
         form=CommentForm()
         context['comments']=comments
         context['form']=form

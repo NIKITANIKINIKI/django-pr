@@ -12,7 +12,7 @@
 }
 
 .mt-100 {
-    margin-top: 100px;
+    margin-top: 150px;
     margin-bottom: 30px;
 }
 
@@ -24,4 +24,14 @@
     background-color: blue;
 }
 
+.pagination-container {
+    position:absolute;
+    top:13%;
+    left: 45%;
+    align-items: center;
+}
 
+.my-mt {
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
