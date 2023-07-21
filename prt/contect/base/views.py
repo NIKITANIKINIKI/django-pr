@@ -10,11 +10,11 @@ from .utils import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import RegisterForm, ContactForm, AddForm, CommentForm, LoginForm
 from .models import *
-
+from django.contrib.auth import login
 
 class Home(MyMixin,ListView):
     model=Person
-    template_name = 'base/base.html'
+    template_name = 'base/content.html'
     context_object_name = 'objects'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -24,7 +24,7 @@ class Home(MyMixin,ListView):
         return context
 
     def get_queryset(self):
-        return Person.objects.order_by('?')[:3]
+        return Person.objects.all()
 
 
 def pageNotFound(request, exception):
@@ -33,19 +33,24 @@ def pageNotFound(request, exception):
 class Register(MyMixin,CreateView):
     form_class=RegisterForm
     template_name='base/register.html'
-    success_url=reverse_lazy('login')
+    success_url=reverse_lazy('home')
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
-        context_m = self.get_user_context(title='Регистрация')
+        context_m = self.get_user_context(title='Добро пожаловать!')
         context = dict(list(context.items()) + list(context_m.items()))
         return context
+
+    def form_valid(self, form):
+        user=form.save()
+        login(self.request, user)
+        return redirect('home')
 
 class Login(MyMixin,LoginView):
     form_class=LoginForm
     template_name='base/register.html'
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
-        context_m = self.get_user_context(title='Вход')
+        context_m = self.get_user_context(title='Давно не виделись!')
         context = dict(list(context.items()) + list(context_m.items()))
         return context
     def get_success_url(self):
@@ -69,10 +74,11 @@ class FeedbackForm(MyMixin,FormView):
         print(form.cleaned_data)
         return redirect('home')
 
-class PostDetailView(MyMixin,DetailView):
+class PostDetailView(LoginRequiredMixin,MyMixin,DetailView):
     model = Person
     template_name = 'base/objects.html'
     context_object_name = 'person'
+    login_url = reverse_lazy('login')
     def get_context_data(self, *, object_list=None, **kwargs):
         context=super().get_context_data(**kwargs)
         context_m = self.get_user_context(title='Соискатели')
