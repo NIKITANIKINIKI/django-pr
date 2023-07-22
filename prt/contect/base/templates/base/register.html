@@ -6,13 +6,19 @@
 {% endblock %}
 
 {% block content %}
-<div class="my-container">
+<div class="container text-center mt-110">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-6">
         <form method="post" enctype="multipart/form-data">
           <div class="register-form-container">
             <h1 class="text-center">{{title}}</h1>
             {% csrf_token %}
             {% for f in form %}
               <div class="my-3">
+                {% if f == form.is_pub %}
+                    <label for="{{ form.is_pub.id_for_label }}">Сделать доступной всем?</label>
+                {% endif %}
                 {{ f }}
               {{ f.errors }}
               </div>
@@ -27,5 +33,8 @@
             {% endif %}
           </div>
         </form>
+    </div>
+    <div class="col"></div>
+  </div>
 </div>
 {% endblock %}
