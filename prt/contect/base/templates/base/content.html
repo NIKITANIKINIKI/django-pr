@@ -6,22 +6,36 @@
 {% endblock %}
 
 {% block content %}
-<div class="pagination-container">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          {% if page_obj.has_previous %}
-          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Туда!</a></li>
-          {% endif %}
-          {% for p in page_obj.paginator.page_range %}
-          {% if page_obj.number == p %}
-          <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
-          {% endif %}
-          {% endfor %}
-          {% if page_obj.has_next %}
-          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Сюда!</a></li>
-          {% endif %}
-        </ul>
-      </nav>
+<div class="container text-center mt-110">
+    <div class="row">
+        <div class="col">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                  <option selected>Показать всех!</option>
+<!--                  {% for cat in cats %}-->
+<!--                  <option value="{{ cat.name }}">One</option>-->
+<!--                  {% endfor %}-->
+            </select>
+        </div>
+        <div class="col"></div>
+        <div class="col">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  {% if page_obj.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Туда!</a></li>
+                  {% endif %}
+                  {% for p in page_obj.paginator.page_range %}
+                  {% if page_obj.number == p %}
+                  <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                  {% endif %}
+                  {% endfor %}
+                  {% if page_obj.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Сюда!</a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+        </div>
+        <div class="col"></div>
+    </div>
 </div>
 <div class="container mt-100">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">

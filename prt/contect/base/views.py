@@ -25,7 +25,7 @@ class Home(MyMixin,ListView):
         return context
 
     def get_queryset(self):
-        return Person.objects.all()
+        return Person.objects.filter(is_pub=True)
 
 
 def pageNotFound(request, exception):
@@ -119,3 +119,20 @@ class AddContent(LoginRequiredMixin,CreateView):
         return context
     def get_success_url(self):
         return reverse_lazy('home')
+
+class MyCategory(MyMixin,ListView):
+    model=Person
+    paginate_by=3
+    template_name = 'base/content.html'
+    context_object_name = 'objects'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context_m=self.get_user_context(title='Главная страница')
+        context=dict(list(context.items())+list(context_m.items()))
+        context['cats'] = Category.objects.all()
+        return context
+
+    def get_queryset(self):
+        cat_id = self.kwargs.get('cat_id')
+        return Person.objects.filter(cat_id=cat_id,is_pub=True)

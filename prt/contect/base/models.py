@@ -8,7 +8,7 @@ class Person(models.Model):
     photo=models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name='Добавьте, пожалуйста, Ваше фото')
     time=models.DateTimeField(auto_now_add=True)
     is_pub=models.BooleanField(default=True, verbose_name='Согласны ли Вы сделать ваше фото доступным другим пользователям?')
-    
+    cat=models.ForeignKey('Category', on_delete=models.PROTECT, null=True )
     def __str__(self):
         return self.name
 
@@ -25,3 +25,8 @@ class UserComment(models.Model):
 
     def __str__(self):
         return f'Comment by user'
+
+class Category(models.Model):
+    name=models.CharField(max_length=50)
+    def __str__(self):
+       return self.name
